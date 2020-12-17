@@ -1,4 +1,10 @@
 # Internal-gateway
 
-Gateway that redirects UDP packets to the different IoT endpoints
+Gateway that redirects http packets to the different IoT endpoints
+
+
+### tbd
+
+Create 
+Match url endpoint with pods
 

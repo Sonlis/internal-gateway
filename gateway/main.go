@@ -24,20 +24,13 @@ func (j JsonFormat) Router() string {
 }
 
 func (j JsonFormat, url string) Sender() {
-	firstField := "effect"
-	qwe := make(map[int]string)
-	qwe[firstField] := j.Arg2
-	data, _ := json.Marshal(qwe)
-    req, err := http.NewRequest("POST", url, data)
-    req.Header.Set("X-Custom-Header", "myvalue")
-    req.Header.Set("Content-Type", "application/json")
-
-    client := &http.Client{}
-    resp, err := client.Do(req)
-    if err != nil {
-        panic(err)
-    }
-    defer resp.Body.Close()
+	if j.Arg1 = 1 {
+		switch j.Arg2:
+		case 1:
+		case 2: 
+		case 3:
+	}
+	req, err := http.NewRquest("GET", "")
 }
 
 
