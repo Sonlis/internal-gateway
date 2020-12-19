@@ -25,11 +25,6 @@ def energy():
     procs.append(proc)
 
 
-
-
-
-
-
 def stop(procs):
     for i in procs:
         i.kill() 

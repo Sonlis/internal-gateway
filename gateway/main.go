@@ -1,39 +1,38 @@
+// Receives POST request with json data,  and run visualization program accordingly
+
 package main
 import (
     "encoding/json"
     "log"
 	"net/http"
-	"./sender"
+	"os"
+	"strings"
 )
 
+var procs []int
+var cmd Any 
+
+
 type JsonFormat struct {
-	Arg1 *int `json:"component"`
+	Arg1 *[]int `json:"component"`
 	Arg2 *int `json:"effect"`
 }
 
+type Any interface{}
 
-func (j JsonFormat) Router() string {
-	var url string
-	switch j.Arg1 {
-	case 1: url = ""
-	case 2: url = ""
-	case 3: url = ""
-	default: return "Wrong argument"
-	}
-	Sender(j, url)
+// When server receives an effect for particuliar strips, kills anything displaying on that strip
+func KillProcs(sub Any) {
+	sub.Process.Kill()
+
+
+// Display the selected pattern on the range of selected devices
+func (j JsonFormat, url string) SubProcess() {
+	KillProcs(cmd)
+	urls := strings.Join(url, " ")
+	cmd = exec.Command("python", "dancypi/scripts/visualization.py", j.Arg2, "urls")
 }
 
-func (j JsonFormat, url string) Sender() {
-	if j.Arg1 = 1 {
-		switch j.Arg2:
-		case 1:
-		case 2: 
-		case 3:
-	}
-	req, err := http.NewRquest("GET", "")
-}
-
-
+// Handles request on the path / and input POST data into JsonFormat struct
 func Receiver(rw http.ResponseWriter, req *http.Request) {
 	d := json.NewDecoder(req.Body)
 	d.DisallowUnknownFields()
@@ -53,12 +52,14 @@ func Receiver(rw http.ResponseWriter, req *http.Request) {
 	}
 	log.Println(*t.Arg1)
 	log.Println(*t.Arg2)
-	go t.Router()
+	go t.SubProcess()
 
 }
 
 
 func main() {
-    http.HandleFunc("/", Route)
+    http.HandleFunc("/", Receiver)
     log.Fatal(http.ListenAndServe("0.0.0.0:8082", nil))
 }
+
+
