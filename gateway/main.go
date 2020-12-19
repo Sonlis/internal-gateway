@@ -14,7 +14,7 @@ var cmd Any
 
 
 type JsonFormat struct {
-	Arg1 *[]int `json:"component"`
+	Arg1 *[]string `json:"component"`
 	Arg2 *int `json:"effect"`
 }
 
@@ -23,12 +23,13 @@ type Any interface{}
 // When server receives an effect for particuliar strips, kills anything displaying on that strip
 func KillProcs(sub Any) {
 	sub.Process.Kill()
+}
 
 
 // Display the selected pattern on the range of selected devices
-func (j JsonFormat, url string) SubProcess() {
+func (j JsonFormat) SubProcess() {
 	KillProcs(cmd)
-	urls := strings.Join(url, " ")
+	urls := strings.Join(j.Arg1, " ")
 	cmd = exec.Command("python", "dancypi/scripts/visualization.py", j.Arg2, "urls")
 }
 
