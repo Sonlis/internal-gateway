@@ -38,9 +38,11 @@ func (j JSONFormat) SubProcess() {
 	effect := *j.Arg2
 	urls := strings.Join(tmp, " ")
 	if effect == 1 {
-		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "scroll", urls)
+		//cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "scroll", urls)
+		cmd = exec.Command("python3", "test1.py")
 	} else if effect == 2 {
-		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "energy", urls)
+		//cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "energy", urls)
+		cmd = exec.Command("python3", "test2.py")
 	} else if effect == 3 {
 		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "spectrum", urls)
 	}
