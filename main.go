@@ -1,5 +1,4 @@
 // Receives POST request with json data,  and run visualization program accordingly
-
 package main
 
 import (
@@ -32,19 +31,22 @@ func KillProcs(sub *exec.Cmd) {
 }
 
 //SubProcess runs the python visualization with relevant args
-func (j JSONFormat) SubProcess() {
+func SubProcess(j *JSONFormat) {
 	KillProcs(cmd)
 	tmp := *j.Arg1
 	effect := *j.Arg2
 	urls := strings.Join(tmp, " ")
 	if effect == 1 {
-		//cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "scroll", urls)
-		cmd = exec.Command("python3", "test1.py")
+		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "scroll", urls)
+		//cmd = exec.Command("python3", "testgo/test1.py")
 	} else if effect == 2 {
-		//cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "energy", urls)
-		cmd = exec.Command("python3", "test2.py")
+		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "energy", urls)
+		//cmd = exec.Command("python3", "testgo/test2.py")
 	} else if effect == 3 {
 		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "spectrum", urls)
+	}
+	if err := cmd.Run(); err != nil {
+		log.Fatal("Couldn't run subprocess")
 	}
 }
 
@@ -68,7 +70,7 @@ func Receiver(rw http.ResponseWriter, req *http.Request) {
 	}
 	log.Println(*t.Arg1)
 	log.Println(*t.Arg2)
-	go t.SubProcess()
+	go SubProcess(t)
 
 }
 
