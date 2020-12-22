@@ -3,14 +3,14 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"net/http"
 	"os/exec"
 	"strings"
 )
 
-var procs []int
+//var procs []int
+var processes []*exec.Cmd
 var cmd *exec.Cmd
 
 //JSONFormat is the Struct to input received JSON date
@@ -19,20 +19,12 @@ type JSONFormat struct {
 	Arg2 *int      `json:"effect"`
 }
 
-//KillProcs kills processes already running on a strip
-func KillProcs(sub *exec.Cmd) {
-	defer func() {
-		if erro := recover(); erro != nil {
-			fmt.Printf("No process running")
-		}
-	}()
-	sub.Process.Kill()
-
-}
-
 //SubProcess runs the python visualization with relevant args
 func SubProcess(j *JSONFormat) {
-	KillProcs(cmd)
+
+	for _, value := range processes {
+		value.Process.Kill()
+	}
 	tmp := *j.Arg1
 	effect := *j.Arg2
 	urls := strings.Join(tmp, " ")
@@ -45,9 +37,11 @@ func SubProcess(j *JSONFormat) {
 	} else if effect == 3 {
 		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "spectrum", urls)
 	}
+	processes = append(processes, cmd)
 	if err := cmd.Run(); err != nil {
-		log.Fatal("Couldn't run subprocess")
+		log.Printf("Processes killed\n")
 	}
+
 }
 
 //Receiver is triggered on the "path" and decode JSON to input in JSONFormat
