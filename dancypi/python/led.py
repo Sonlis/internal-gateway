@@ -18,6 +18,7 @@ _prev_pixels = np.tile(253, (3, config.N_PIXELS))
 pixels = np.tile(1, (3, config.N_PIXELS))
 """Pixel values for the LED strip"""
 
+
 _is_python_2 = int(platform.python_version_tuple()[0]) == 2
 
 
@@ -77,5 +78,5 @@ if __name__ == '__main__':
     print('Starting LED strand test')
     while True:
         pixels = np.roll(pixels, 1, axis=1)
-        _update_esp8266()
+        update(components)
         time.sleep(.1)
