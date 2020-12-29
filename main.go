@@ -9,7 +9,6 @@ import (
 	"strings"
 )
 
-//var procs []int
 var processes []*exec.Cmd
 var cmd *exec.Cmd
 
@@ -41,7 +40,6 @@ func SubProcess(j *JSONFormat) {
 	if err := cmd.Run(); err != nil {
 		log.Printf("Processes killed\n")
 	}
-
 }
 
 //Receiver is triggered on the "path" and decode JSON to input in JSONFormat
