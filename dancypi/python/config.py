@@ -25,29 +25,14 @@ if DEVICE == 'esp8266':
     SOFTWARE_GAMMA_CORRECTION = False
     """Set to False because the firmware handles gamma correction + dither"""
 
-if DEVICE == 'pi':
-    LED_PIN = 18
-    """GPIO pin connected to the LED strip pixels (must support PWM)"""
-    LED_FREQ_HZ = 800000
-    """LED signal frequency in Hz (usually 800kHz)"""
-    LED_DMA = 5
-    """DMA channel used for generating PWM signal (try 5)"""
-    BRIGHTNESS = 255
-    """Brightness of LED strip between 0 and 255"""
-    LED_INVERT = False
-    """Set True if using an inverting logic level converter"""
-    SOFTWARE_GAMMA_CORRECTION = True
-    """Set to True because Raspberry Pi doesn't use hardware dithering"""
-
-if DEVICE == 'blinkstick':
-    SOFTWARE_GAMMA_CORRECTION = True
-    """Set to True because blinkstick doesn't use hardware dithering"""
 
 USE_GUI = False
 """Whether or not to display a PyQtGraph GUI plot of visualization"""
 
 DISPLAY_FPS = True
 """Whether to display the FPS when running (can reduce performance)"""
+
+## To be done: Change amount of pixel based on component
 
 N_PIXELS = 144
 """Number of pixels in the LED strip (must match ESP8266 firmware)"""
