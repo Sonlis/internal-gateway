@@ -9,7 +9,6 @@ import (
 	"strings"
 )
 
-//var procs []int
 var processes []*exec.Cmd
 var cmd *exec.Cmd
 
