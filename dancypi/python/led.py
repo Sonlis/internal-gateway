@@ -42,7 +42,7 @@ def update(components):
     # Truncate values and cast to integer
     pixels = np.clip(pixels, 0, 255).astype(int)
     # Optionally apply gamma correc tio
-    p = _gamma[pixels] if config.SOFTWARE_GAMMA_CORRECTION else np.copy(pixels)
+    p = np.copy(pixels)
     MAX_PIXELS_PER_PACKET = 126
     # Pixel indices
     idx = range(pixels.shape[1])
@@ -60,8 +60,8 @@ def update(components):
                 m.append(p[1][i])  # Pixel green value
                 m.append(p[2][i])  # Pixel blue value
         m = m if _is_python_2 else bytes(m)
-        for i in range components:
-            _sock.sendto(m, (components, config.UDP_PORT))
+        for i in range(len(components)):
+            _sock.sendto(m, (components[i], config.UDP_PORT))
     _prev_pixels = np.copy(p)
 
 

@@ -3,7 +3,7 @@ from __future__ import print_function
 from __future__ import division
 import os
 
-DEVICE = 'pi'
+DEVICE = 'esp8266'
 
 """Device used to control LED strip. Must be 'pi',  'esp8266' or 'blinkstick'
 
