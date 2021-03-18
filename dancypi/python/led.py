@@ -6,14 +6,10 @@ import numpy as np
 import config
 
 # ESP8266 uses WiFi communication
-if config.DEVICE == 'esp8266':
-    import socket
-    _sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+import socket
+_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 # Raspberry Pi controls the LED strip directly
     # Create a listener that turns the leds off when the program terminates
-    signal.signal(signal.SIGTERM, signal_handler)
-    signal.signal(signal.SIGINT, signal_handler)
-
 _gamma = np.load(config.GAMMA_TABLE_PATH)
 """Gamma lookup table used for nonlinear brightness correction"""
 
