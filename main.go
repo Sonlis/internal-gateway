@@ -6,13 +6,13 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	"strings"
+	//"strings"
 )
 
 var processes []*exec.Cmd
 var cmd *exec.Cmd
 
-//JSONFormat is the Struct to input received JSON date
+//JSONFormat is the Struct to input received JSON data
 type JSONFormat struct {
 	Arg1 *[]string `json:"component"`
 	Arg2 *int      `json:"effect"`
@@ -21,24 +21,33 @@ type JSONFormat struct {
 //SubProcess runs the python visualization with relevant args
 func SubProcess(j *JSONFormat) {
 
-	for _, value := range processes {
-		value.Process.Kill()
+	if processes != nil {
+		for _, value := range processes {
+			err := value.Process.Kill()
+			if err != nil {
+				log.Printf("error killing processes: %v", err)
+			}
+		}
 	}
-	tmp := *j.Arg1
+	processes = nil 
+	//tmp := *j.Arg1
 	effect := *j.Arg2
-	urls := strings.Join(tmp, " ")
+	log.Println(effect)
+	//urls := strings.Join(tmp, " ")
 	if effect == 1 {
-		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "scroll", urls)
+		cmd = exec.Command("python", "dancypi/visualization.py", "scroll")
 		//cmd = exec.Command("python3", "testgo/test1.py")
 	} else if effect == 2 {
-		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "energy", urls)
+		cmd = exec.Command("python", "dancypi/visualization.py", "energy")
 		//cmd = exec.Command("python3", "testgo/test2.py")
 	} else if effect == 3 {
-		cmd = exec.Command("python", "dancypi/scripts/python/visualization.py", "spectrum", urls)
+		cmd = exec.Command("python", "dancypi/visualization.py", "spectrum")
 	}
 	processes = append(processes, cmd)
 	if err := cmd.Run(); err != nil {
-		log.Printf("Processes killed\n")
+		log.Printf("Ran process without problem\n")
+	} else {
+		log.Printf("error: %v", err)
 	}
 }
 

@@ -10,9 +10,6 @@ import led
 import sys
 
 visualization_type = sys.argv[1]
-components = sys.argv[2:]
-
-
 
 _time_prev = time.time() * 1000.0
 """The previous time that the frames_per_second() function was called"""
@@ -207,7 +204,7 @@ def microphone_update(audio_samples):
     if vol < config.MIN_VOLUME_THRESHOLD:
         print('No audio input. Volume below threshold. Volume:', vol)
         led.pixels = np.tile(0, (3, config.N_PIXELS))
-        led.update(components)
+        led.update()
     else:
         # Transform audio input into the frequency domain
         N = len(y_data)
@@ -229,7 +226,7 @@ def microphone_update(audio_samples):
         # Map filterbank output onto LED strip
         output = visualization_effect(mel)
         led.pixels = output
-        led.update(components)
+        led.update()
         if config.USE_GUI:
             # Plot filterbank output
             x = np.linspace(config.MIN_FREQUENCY, config.MAX_FREQUENCY, len(mel))
@@ -365,10 +362,7 @@ if __name__ == '__main__':
         layout.addItem(energy_label)
         layout.addItem(scroll_label)
         layout.addItem(spectrum_label)
-    
     # Initialize LEDs
-    #for i in sys.argv[2:]:
-    #    components = components.append(sys.argv[i])
-    led.update(components)
+    led.update()
     # Start listening to live audio stream
     microphone.start_stream(microphone_update)
