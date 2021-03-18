@@ -35,13 +35,13 @@ func SubProcess(j *JSONFormat) {
 	log.Println(effect)
 	//urls := strings.Join(tmp, " ")
 	if effect == 1 {
-		cmd = exec.Command("python", "dancypi/visualization.py", "scroll")
+		cmd = exec.Command("python3", "dancypi/python/visualization.py", "scroll")
 		//cmd = exec.Command("python3", "testgo/test1.py")
 	} else if effect == 2 {
-		cmd = exec.Command("python", "dancypi/visualization.py", "energy")
+		cmd = exec.Command("python3", "dancypi/python/visualization.py", "energy")
 		//cmd = exec.Command("python3", "testgo/test2.py")
 	} else if effect == 3 {
-		cmd = exec.Command("python", "dancypi/visualization.py", "spectrum")
+		cmd = exec.Command("python3", "dancypi/python/visualization.py", "spectrum")
 	}
 	processes = append(processes, cmd)
 	if err := cmd.Run(); err != nil {
