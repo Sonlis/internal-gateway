@@ -18,21 +18,19 @@ to control the leds connected to it.
 """
 
 if DEVICE == 'esp8266':
-    UDP_IP = '192.168.0.150'
+    UDP_IP = '192.168.0.10'
     """IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
+    """To send to multiple ESPs, create a list with their IPs as such: ['192.168.0.10', '192.168.0.11']"""
     UDP_PORT = 7777
     """Port number used for socket communication between Python and ESP8266"""
     SOFTWARE_GAMMA_CORRECTION = False
     """Set to False because the firmware handles gamma correction + dither"""
 
-
-USE_GUI = True
+USE_GUI = False
 """Whether or not to display a PyQtGraph GUI plot of visualization"""
 
-DISPLAY_FPS = True
+DISPLAY_FPS = False
 """Whether to display the FPS when running (can reduce performance)"""
-
-## To be done: Change amount of pixel based on component
 
 N_PIXELS = 60
 """Number of pixels in the LED strip (must match ESP8266 firmware)"""
@@ -40,7 +38,7 @@ N_PIXELS = 60
 GAMMA_TABLE_PATH = os.path.join(os.path.dirname(__file__), 'gamma_table.npy')
 """Location of the gamma correction table"""
 
-MIC_RATE = 48000
+MIC_RATE = 44100
 """Sampling frequency of the microphone in Hz"""
 
 FPS = 50
