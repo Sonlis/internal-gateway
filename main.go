@@ -43,6 +43,7 @@ func SubProcess(j *JSONFormat) {
 	} else if effect == 3 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "spectrum")
 	} else if effect == 4 {
+		cmd = exec.Command("python3", "dancypi/python/effect.py")
 		log.Printf("Killed all display")
 	}
 	processes = append(processes, cmd)
