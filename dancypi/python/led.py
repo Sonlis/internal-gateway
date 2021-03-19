@@ -21,7 +21,7 @@ pixels = np.tile(1, (3, config.N_PIXELS))
 
 _is_python_2 = int(platform.python_version_tuple()[0]) == 2
 
-def _update_esp8266():
+def update():
     """Sends UDP packets to ESP8266 to update LED strip values
 
     The ESP8266 will receive and decode the packets to determine what values
@@ -61,11 +61,6 @@ def _update_esp8266():
         for i in range(len(config.UDP_IP)):
             _sock.sendto(m, (config.UDP_IP, config.UDP_PORT))
     _prev_pixels = np.copy(p)
-
-def update():
-    """Updates the LED strip values"""
-    _update_esp8266()
-
 
 # Execute this file to run a LED strand test
 # If everything is working, you should see a red, green, and blue pixel scroll
