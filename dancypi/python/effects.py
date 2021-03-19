@@ -85,7 +85,20 @@ def setPixelHeatColor(Pixel, temperature):
     b[Pixel] = 0 
   return r, g, b
 
+
+def clear():
+  global r, g, b
+  for i in range(config.N_PIXELS):
+    r[i] = 0
+    g[i] = 0
+    b[i] = 0
+  led.pixels = np.array([r,g,b])
+  led.update()
+
+
+
 if __name__ == '__main__':
-    while True:
-      CylonBounce(0xff, 0x00, 0x00, 4, 10, 50)
+    clear()
+    #while True:
+      #CylonBounce(0xff, 0x00, 0x00, 4, 10, 50)
       #Fire(55,120,50)
