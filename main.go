@@ -14,7 +14,7 @@ var cmd *exec.Cmd
 
 //JSONFormat is the Struct to input received JSON data
 type JSONFormat struct {
-	Arg1 *[]string `json:"component"`
+	Arg1 *string `json:"component"`
 	Arg2 *int      `json:"effect"`
 }
 
