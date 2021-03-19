@@ -42,6 +42,8 @@ func SubProcess(j *JSONFormat) {
 		//cmd = exec.Command("python3", "testgo/test2.py")
 	} else if effect == 3 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "spectrum")
+	} else if effect == 4 {
+		log.Printf("Killed all display")
 	}
 	processes = append(processes, cmd)
 	if err := cmd.Run(); err != nil {
