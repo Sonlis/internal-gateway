@@ -43,7 +43,9 @@ def _update_esp8266():
     p = _gamma[pixels] if config.SOFTWARE_GAMMA_CORRECTION else np.copy(pixels)
     MAX_PIXELS_PER_PACKET = 126
     # Pixel indices
+    print("pixels:", pixels)
     idx = range(pixels.shape[1])
+    print("idx:", idx)
     idx = [i for i in idx if not np.array_equal(p[:, i], _prev_pixels[:, i])]
     n_packets = len(idx) // MAX_PIXELS_PER_PACKET + 1
     idx = np.array_split(idx, n_packets)
