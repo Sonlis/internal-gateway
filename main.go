@@ -6,7 +6,9 @@ import (
 	"log"
 	"net/http"
 	"os/exec"
-	//"strings"
+	"strings"
+	"os"
+	"io/ioutil"
 )
 
 var processes []*exec.Cmd
@@ -14,7 +16,7 @@ var cmd *exec.Cmd
 
 //JSONFormat is the Struct to input received JSON data
 type JSONFormat struct {
-	Arg1 *string `json:"component"`
+	Arg1 *[]string `json:"component"`
 	Arg2 *int      `json:"effect"`
 }
 
@@ -30,10 +32,25 @@ func SubProcess(j *JSONFormat) {
 		}
 	}
 	processes = nil 
-	//tmp := *j.Arg1
+	tmp := *j.Arg1
 	effect := *j.Arg2
-	log.Println(effect)
-	//urls := strings.Join(tmp, " ")
+	urls := strings.Join(tmp, ",")
+	file, err := os.Open("dancypi/python/config.py")
+	data, err := ioutil.ReadAll(file)
+		if err != nil {
+			log.Printf("error reading file: %v", err)
+		}
+	lines := strings.Split(string(data), "\n")
+	for i, line := range lines {
+		if strings.Contains(line, "UDP_IP") {
+			lines[i] = "UDP_IP= [" + urls + "]"
+		}
+	}
+	output := strings.Join(lines, "\n")
+	err = ioutil.WriteFile("dancypi/python/config.py", []byte(output), 0644)
+	if err != nil {
+			log.Printf("Error joining lines: %v", err)
+	}
 	if effect == 1 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "scroll")
 		//cmd = exec.Command("python3", "testgo/test1.py")
@@ -53,6 +70,7 @@ func SubProcess(j *JSONFormat) {
 		log.Printf("error: %v", err)
 	}
 }
+	
 
 //Receiver is triggered on the "path" and decode JSON to input in JSONFormat
 func Receiver(rw http.ResponseWriter, req *http.Request) {
