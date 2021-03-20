@@ -43,7 +43,7 @@ func SubProcess(j *JSONFormat) {
 	lines := strings.Split(string(data), "\n")
 	for i, line := range lines {
 		if strings.Contains(line, "UDP_IP") {
-			lines[i] = "UDP_IP= [" + urls + "]"
+			lines[i] = "UDP_IP = [" + urls + "]"
 		}
 	}
 	output := strings.Join(lines, "\n")
