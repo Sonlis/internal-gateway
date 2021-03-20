@@ -18,7 +18,7 @@ to control the leds connected to it.
 """
 
 if DEVICE == 'esp8266':
-    UDP_IP = '192.168.0.10'
+UDP_IP= ["192.168.0.10","192.168.0.11"]
     """IP address of the ESP8266. Must match IP in ws2812_controller.ino"""
     """To send to multiple ESPs, create a list with their IPs as such: ['192.168.0.10', '192.168.0.11']"""
     UDP_PORT = 7777
@@ -32,7 +32,7 @@ USE_GUI = False
 DISPLAY_FPS = False
 """Whether to display the FPS when running (can reduce performance)"""
 
-N_PIXELS = 60
+N_PIXELS = 144
 """Number of pixels in the LED strip (must match ESP8266 firmware)"""
 
 GAMMA_TABLE_PATH = os.path.join(os.path.dirname(__file__), 'gamma_table.npy')
