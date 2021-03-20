@@ -61,7 +61,7 @@ def update():
                 m.append(p[2][i])  # Pixel blue value
         m = m if _is_python_2 else bytes(m)
         for i in range(len(config.UDP_IP)):
-            _sock.sendto(m, (config.UDP_IP, config.UDP_PORT))
+            _sock.sendto(m, (config.UDP_IP[i], config.UDP_PORT))
     _prev_pixels = np.copy(p)
 
 # Execute this file to run a LED strand test
