@@ -31,11 +31,11 @@ func SubProcess(j *JSONFormat) {
 			}
 		}
 	}
-	log.Println("Received request with components:", j.Arg1 )
 	processes = nil 
 	tmp := *j.Arg1
 	effect := *j.Arg2
 	urls := strings.Join(tmp, ",")
+	log.Println("urls:", urls)
 	file, err := os.Open("dancypi/python/config.py")
 	data, err := ioutil.ReadAll(file)
 		if err != nil {
