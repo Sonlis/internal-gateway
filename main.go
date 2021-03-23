@@ -31,6 +31,7 @@ func SubProcess(j *JSONFormat) {
 			}
 		}
 	}
+	log.Println("Received request with components:", j.Arg1 )
 	processes = nil 
 	tmp := *j.Arg1
 	effect := *j.Arg2
@@ -53,10 +54,8 @@ func SubProcess(j *JSONFormat) {
 	}
 	if effect == 1 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "scroll")
-		//cmd = exec.Command("python3", "testgo/test1.py")
 	} else if effect == 2 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "energy")
-		//cmd = exec.Command("python3", "testgo/test2.py")
 	} else if effect == 3 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "spectrum")
 	} else if effect == 4 {
