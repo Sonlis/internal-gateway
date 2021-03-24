@@ -35,7 +35,6 @@ func SubProcess(j *JSONFormat) {
 	tmp := *j.Arg1
 	effect := *j.Arg2
 	urls := strings.Join(tmp, ",")
-	log.Println("urls:", urls)
 	file, err := os.Open("dancypi/python/config.py")
 	data, err := ioutil.ReadAll(file)
 		if err != nil {
@@ -89,8 +88,6 @@ func Receiver(rw http.ResponseWriter, req *http.Request) {
 		http.Error(rw, "extraneous data after JSON object", http.StatusBadRequest)
 		return
 	}
-	log.Println(*t.Arg1)
-	log.Println(*t.Arg2)
 	go SubProcess(t)
 
 }
