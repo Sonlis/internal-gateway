@@ -5,9 +5,9 @@ import numpy as np
 from random import random, randrange
 import sys
 
-r = [None] * config.N_PIXELS
-g = [None] * config.N_PIXELS
-b = [None] * config.N_PIXELS
+r = [0] * config.N_PIXELS
+g = [0] * config.N_PIXELS
+b = [0] * config.N_PIXELS
 
 
 def CylonBounce(red, green, blue, EyeSize, SpeedDelay, ReturnDelay):
