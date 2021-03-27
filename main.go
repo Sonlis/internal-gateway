@@ -58,15 +58,15 @@ func SubProcess(j *JSONFormat) {
 	} else if effect == 3 {
 		cmd = exec.Command("python3", "dancypi/python/visualization.py", "spectrum")
 	} else if effect == 4 {
-		cmd = exec.Command("python3", "dancypi/python/effect.py", "color_wipe")
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "color_wipe")
 	} else if effect == 5 {
-		cmd = exec.Command("python3", "dancypi/python/effect.py", "theater_chase")
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "theater_chase")
 	} else if effect == 6 {
-		cmd = exec.Command("python3", "dancypi/python/effect.py", "rainbow")
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "rainbow")
 	} else if effect == 7 {
-		cmd = exec.Command("python3", "dancypi/python/effect.py", "theater_chase_rainbow")
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "theater_chase_rainbow")
 	} else if effect == 8 {
-		cmd = exec.Command("python3", "dancypi/python/effect.py", "clear")
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "clear")
 		log.Printf("Killed all display")
 	}
 	processes = append(processes, cmd)
