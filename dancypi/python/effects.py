@@ -118,7 +118,7 @@ def theaterChase(rcolor, gcolor, bcolor, wait_ms=50):
 def rainbow(wait_ms=20, iterations=1):
   for j in range(256*iterations):
     for i in range(config.N_PIXELS):
-      r[i], g[i], b[i] = wheel(((i * 256 / config.N_PIXELS) +j) & 255)
+      r[i], g[i], b[i] = wheel(round(((i * 256 / config.N_PIXELS) +j)) & 255)
     led.pixels = np.array([r,g,b])
     led.update()
     time.sleep(wait_ms/1000.0)
