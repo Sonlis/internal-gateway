@@ -2,13 +2,13 @@ import time
 import config
 import led
 import numpy as np
-from random import random, randrange
+from random import random, randrange, randint
 import sys
 
 r = [0] * config.N_PIXELS
 g = [0] * config.N_PIXELS
 b = [0] * config.N_PIXELS
-
+heat = [0] * config.N_PIXELS
 
 def CylonBounce(red, green, blue, EyeSize, SpeedDelay, ReturnDelay):
   global r,g,b
@@ -46,46 +46,43 @@ def CylonBounce(red, green, blue, EyeSize, SpeedDelay, ReturnDelay):
   time.sleep(ReturnDelay / 1000)
 
 def Fire(Cooling, Sparking, SpeedDelay):
-  global cooldown, heat, y, r, g, b
-  heat = list(range(config.N_PIXELS))
+  global heat
   for i in range(config.N_PIXELS):
-    cooldown = randrange(0, round(((Cooling * 10) / config.N_PIXELS)) +2)
+    cooldown = randint(0,round(((Cooling * 10) / config.N_PIXELS) +2))
     if cooldown > heat[i]:
       heat[i] = 0
     else:
       heat[i] = heat[i] - cooldown 
   for k in range(config.N_PIXELS - 1, 2, -1):
     heat[k] = (heat[k - 1] + heat[k - 2] + heat[k -2]) / 3
-  if randrange(0,255) < Sparking:
-    y = randrange(0, 7)
-    heat[y] = heat[y] + randrange(160,255)
+  if randint(0,255) < Sparking:
+    y = randint(0,7)
+    heat[y] = randint(160,255)
   for j in range(config.N_PIXELS):
-    r, g, b = setPixelHeatColor(j, heat[j])
-  r = np.concatenate((r[::-1], r))
-  g = np.concatenate((g[::-1], g))
-  b = np.concatenate((b[::-1], b))
+    print(heat[j])
+    r[j], g[j], b[j] = setPixelHeatColor(heat[j])
   led.pixels = np.array([r,g,b])
   led.update()
   time.sleep(SpeedDelay / 1000)
 
-def setPixelHeatColor(Pixel, temperature):
-  global r, g, b
-  t192 = int(round((temperature / 255.0)*191))
+def setPixelHeatColor(temperature):
+  c = [bytes] * 3
+  t192 = round((temperature / 255)*191)
   heatramp = t192 & 0x3F
   heatramp <<= 2
-  if (t192 > 0x80):
-    r[Pixel] = 255
-    g[Pixel] = 255
-    b[Pixel] = heatramp 
-  elif (t192 > 0x40):
-    r[Pixel] = 255
-    g[Pixel] = heatramp
-    b[Pixel] = 0
+  if (t192 & 0x80):
+    c[0] = 255
+    c[1] = 255
+    c[2] = heatramp 
+  elif (t192 & 0x40):
+    c[0] = 255
+    c[1] = heatramp
+    c[2] = 0
   else:
-    r[Pixel] = heatramp 
-    g[Pixel] = 0
-    b[Pixel] = 0 
-  return r, g, b
+    c[0] = heatramp 
+    c[1] = 0
+    c[2] = 0 
+  return c
 
 def colorWipe(rcolor,gcolor,bcolor, wait_ms=50):
     global r,g,b
@@ -182,5 +179,8 @@ if __name__ == '__main__':
   elif sys.argv[1] == "theater_chase_rainbow":
     while True:
       theaterChaseRainbow()
+  elif sys.argv[1] == "fire":
+    while True:
+      Fire(70,120,30)
   elif sys.argv[1] == "clear":
     clear()
