@@ -66,6 +66,8 @@ func SubProcess(j *JSONFormat) {
 	} else if effect == 7 {
 		cmd = exec.Command("python3", "dancypi/python/effects.py", "theater_chase_rainbow")
 	} else if effect == 8 {
+		cmd = exec.Command("python3", "dancypi/python/effects.py", "fire")
+	} else if effect == 9 {
 		cmd = exec.Command("python3", "dancypi/python/effects.py", "clear")
 		log.Printf("Killed all display")
 	}
